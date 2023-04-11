@@ -1,6 +1,6 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.34.4.
+-- This file has been generated from package.yaml by hpack version 0.35.1.
 --
 -- see: https://github.com/sol/hpack
 
@@ -41,12 +41,12 @@ library
       src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
-      Decimal
+      Decimal >=0.5.2
     , base >=4.7 && <5
     , containers
     , fixplate
     , mtl
-    , random
+    , random >=1.2.1.1
     , text
   default-language: Haskell2010
 
@@ -58,12 +58,12 @@ executable user-thing-exe
       app
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      Decimal
+      Decimal >=0.5.2
     , base >=4.7 && <5
     , containers
     , fixplate
     , mtl
-    , random
+    , random >=1.2.1.1
     , text
     , user-thing
   default-language: Haskell2010
@@ -77,12 +77,12 @@ test-suite user-thing-test
       test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      Decimal
+      Decimal >=0.5.2
     , base >=4.7 && <5
     , containers
     , fixplate
     , mtl
-    , random
+    , random >=1.2.1.1
     , text
     , user-thing
   default-language: Haskell2010

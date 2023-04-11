@@ -1,10 +1,10 @@
 name: user-thing
 version: 0.1.0.0
-github: 'mkalvas/user-thing'
+github: "mkalvas/user-thing"
 license: BSD3
-author: 'Mike Kalvas'
-maintainer: 'mkalvas@gmail.com'
-copyright: '2022 Mike Kalvas'
+author: "Mike Kalvas"
+maintainer: "mkalvas@gmail.com"
+copyright: "2022 Mike Kalvas"
 
 extra-source-files:
   - README.md
@@ -21,10 +21,10 @@ description: Please see the README on GitHub at <https://github.com/githubuser/u
 dependencies:
   - base >= 4.7 && < 5
   - containers
-  - Decimal
+  - Decimal >= 0.5.2
   - fixplate
   - mtl
-  - random
+  - random >= 1.2.1.1
   - text
 
 ghc-options:

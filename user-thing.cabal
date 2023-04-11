@@ -33,8 +33,8 @@ library
       Projects.Database
       Projects.Demo
       Projects.PrettyPrint
-      Projects.Project
       Projects.Reporting
+      Projects.Task
   other-modules:
       Paths_user_thing
   hs-source-dirs:

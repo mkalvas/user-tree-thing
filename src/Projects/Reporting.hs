@@ -6,12 +6,12 @@ import Data.Foldable (fold)
 import Data.Generics.Fixplate.Attributes (synthetiseM)
 import Data.Generics.Fixplate.Base (Attr)
 import Data.Monoid (getSum)
-import qualified Projects.Database as DB
-import Projects.Project
+import Projects.Database as DB (getBudget, getTransactions)
+import Projects.Task
   ( Budget (budgetExpenditure, budgetIncome),
     Money,
-    Project,
-    ProjectF (..),
+    Task,
+    TaskF (..),
     Transaction (..),
   )
 
@@ -42,11 +42,11 @@ calculateReport budget transactions =
     asProfit (Sale m) = pure m
     asProfit (Purchase m) = pure (negate m)
 
-type ProjectReport = Attr ProjectF Report
+type ProjectReport = Attr TaskF Report
 
-calculateProjectReports :: Project -> IO ProjectReport
+calculateProjectReports :: Task -> IO ProjectReport
 calculateProjectReports = synthetiseM calc
   where
-    calc (Project p _) =
+    calc (Task p _) =
       calculateReport <$> DB.getBudget p <*> DB.getTransactions p
-    calc (ProjectGroup _ reports) = pure (fold reports)
+    calc (TaskGroup _ reports) = pure (fold reports)

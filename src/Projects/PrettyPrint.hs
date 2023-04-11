@@ -2,8 +2,8 @@ module Projects.PrettyPrint (prettyResult) where
 
 import Data.Decimal (roundTo)
 import Data.Generics.Fixplate.Base (Ann (Ann))
-import Projects.Project (Money (Money), ProjectF (..), ProjectId (ProjectId))
 import Projects.Reporting (Report (..))
+import Projects.Task (Money (Money), TaskF (..), TaskId (TaskId))
 import Text.Printf (printf)
 
 prettyMoney :: Money -> String
@@ -19,10 +19,10 @@ prettyReport r =
     (prettyMoney (netProfit r))
     (prettyMoney (difference r))
 
-prettyResult :: Ann ProjectF Report a -> String
-prettyResult (Ann report project') =
-  case project' of
-    Project (ProjectId p) name ->
+prettyResult :: Ann TaskF Report a -> String
+prettyResult (Ann report task') =
+  case task' of
+    Task (TaskId p) name ->
       printf "%s (%d): %s" name p (prettyReport report)
-    ProjectGroup name _ ->
+    TaskGroup name _ ->
       printf "%s: %s" name (prettyReport report)

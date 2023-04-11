@@ -1,15 +1,15 @@
 {-# LANGUAGE DeriveTraversable #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 
-module Projects.Project
+module Projects.Task
   ( Budget (..),
     Transaction (..),
     Money (..),
-    ProjectId (ProjectId),
-    ProjectF (..),
-    Project,
-    project,
-    projectGroup,
+    TaskId (TaskId),
+    TaskF (..),
+    Task,
+    task,
+    taskGroup,
   )
 where
 
@@ -33,20 +33,20 @@ data Transaction
   | Purchase Money
   deriving (Show, Eq)
 
-newtype ProjectId = ProjectId
-  { unProjectId :: Int
+newtype TaskId = TaskId
+  { unTaskId :: Int
   }
   deriving (Show, Eq, Num)
 
-data ProjectF f
-  = Project ProjectId Text
-  | ProjectGroup Text [f]
+data TaskF f
+  = Task TaskId Text
+  | TaskGroup Text [f]
   deriving (Show, Eq, Functor, Foldable, Traversable)
 
-type Project = Mu ProjectF
+type Task = Mu TaskF
 
-project :: ProjectId -> Text -> Project
-project p = Fix . Project p
+task :: TaskId -> Text -> Task
+task p = Fix . Task p
 
-projectGroup :: Text -> [Project] -> Project
-projectGroup name = Fix . ProjectGroup name
+taskGroup :: Text -> [Task] -> Task
+taskGroup name = Fix . TaskGroup name

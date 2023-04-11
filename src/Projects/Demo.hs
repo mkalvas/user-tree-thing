@@ -3,13 +3,13 @@
 module Projects.Demo (someProject) where
 
 import Data.Generics.Fixplate.Draw ()
-import Projects.Project (Project, project, projectGroup)
+import Projects.Task (Task, task, taskGroup)
 
-someProject :: Project
-someProject = projectGroup "Sweden" [stockholm, gothenburh, malmo]
+someProject :: Task
+someProject = taskGroup "Epic" [taskOne, taskTwo, bigTask]
   where
-    stockholm = project 1 "Stockholm"
-    gothenburh = project 2 "Gothenburg"
-    malmo = projectGroup "Malmo" [city, limhamn]
-    city = project 4 "Malmo City"
-    limhamn = project 5 "Limhamn"
+    taskOne = task 1 "Task 1"
+    taskTwo = task 2 "Task 2"
+    bigTask = taskGroup "Big Task" [subTaskOne, subTaskTwo]
+    subTaskOne = task 4 "Sub-Task 1"
+    subTaskTwo = task 5 "Sub-Task 2"

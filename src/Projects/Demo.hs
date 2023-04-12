@@ -1,12 +1,12 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Projects.Demo (someProject) where
+module Projects.Demo (demoProject) where
 
 import Data.Generics.Fixplate.Draw ()
 import Projects.Task (Task, task, taskGroup)
 
-someProject :: Task
-someProject = taskGroup "Epic" [taskOne, taskTwo, bigTask]
+demoProject :: Task
+demoProject = taskGroup "Epic" [taskOne, taskTwo, bigTask]
   where
     taskOne = task 1 "Task 1"
     taskTwo = task 2 "Task 2"

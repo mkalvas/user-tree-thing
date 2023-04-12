@@ -1,33 +1,30 @@
-module Auth.Reporting (AuthReport (..), allPermissions, anyPermissions) where
+{-# LANGUAGE FlexibleInstances #-}
+
+module Auth.Reporting (accPerms, allAuth, anyAuth) where
 
 import Auth.AuthTree
-import qualified Auth.Database as DB
 import Data.Foldable (fold)
-import Data.Generics.Fixplate.Attributes (synthetiseM)
-import Data.Generics.Fixplate.Base (Attr)
+import Data.Generics.Fixplate (Attr, annMap, synthetise)
 import Data.Monoid (All (All, getAll), Any (Any, getAny))
 
-class AuthReport a where
-  authorized :: a -> Bool
+type AccAuthTree = Attr AuthTreeF PermissionList
 
-type AnyAuthorization = Attr AuthTreeF Any
+type BoolAuthTree = Attr AuthTreeF Bool
 
-instance AuthReport Any where
-  authorized = getAny
-
-anyPermissions :: AuthTree -> IO AnyAuthorization
-anyPermissions = synthetiseM rollup
+accPerms :: AuthTree -> AccAuthTree
+accPerms = synthetise rollup
   where
-    rollup (Permission p) = Any <$> DB.getUserPermission p
-    rollup (Role _ permissions) = pure (fold permissions)
+    rollup (Permission p) = [p]
+    rollup (Role _ permissions) = fold permissions
 
-type AllAuthorization = Attr AuthTreeF All
+allAInB :: PermissionList -> PermissionList -> Bool
+allAInB a b = getAll $ foldMap (\x -> All (x `elem` b)) a
 
-instance AuthReport All where
-  authorized = getAll
+allAuth :: PermissionList -> AccAuthTree -> BoolAuthTree
+allAuth perms = annMap (allAInB perms)
 
-allPermissions :: AuthTree -> IO AllAuthorization
-allPermissions = synthetiseM rollup
-  where
-    rollup (Permission p) = All <$> DB.getUserPermission p
-    rollup (Role _ permissions) = pure (fold permissions)
+anyAInB :: PermissionList -> PermissionList -> Bool
+anyAInB a b = getAny $ foldMap (\x -> Any (x `elem` b)) a
+
+anyAuth :: PermissionList -> AccAuthTree -> BoolAuthTree
+anyAuth perms = annMap (anyAInB perms)

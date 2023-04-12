@@ -1,26 +1,24 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Auth.Demo (someAuthTree) where
+module Auth.Demo (demoAuthTree) where
 
 import Auth.AuthTree (AuthTree, permission, role)
 
-someAuthTree :: AuthTree
-someAuthTree = role "Super Admin" [admin, companyAdmin, deleteAll]
+demoAuthTree :: AuthTree
+demoAuthTree = role "Super Admin" [createAll, deleteAll, admin]
   where
-    admin = role "Admin" [companyAdmin, readAll, writeAll]
-    companyAdmin = role "Company Admin" [readCompany, writeCompany]
+    admin = role "Admin" [readAll, updateAll, createCompany, deleteCompany, companyAdmin, user]
+    companyAdmin = role "Company Admin" [readCompany, updateCompany, createUser, readUser, updateUser, deleteUser]
+    user = role "User" [readUser, updateUser]
+    createAll = permission "create-all"
     readAll = permission "read-all"
-    writeAll = permission "write-all"
-    readCompany = permission "read-company"
-    writeCompany = permission "write-company"
+    updateAll = permission "update-all"
     deleteAll = permission "delete-all"
-
--- Have tree of things bottom up
--- Next need to create a User with a role tree attached to it and do 2 things
---   1. answer yes or no to "can I do this?"
---   2. create tree/list of all things I can do (top down)
--- Should I invert the tree or invert the algorithm?
-
--- Also this doesn't "reuse" the common children, they're duplicated so we'd
--- want something different. Probably best to go back to manual recursion
--- instead of free monads until I sort this stuff out.
+    createCompany = permission "create-company"
+    readCompany = permission "read-company"
+    updateCompany = permission "update-company"
+    deleteCompany = permission "delete-company"
+    createUser = permission "create-user"
+    readUser = permission "read-user"
+    updateUser = permission "update-user"
+    deleteUser = permission "delete-user"

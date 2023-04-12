@@ -4,6 +4,7 @@ module Auth.AuthTree
   ( AuthTreeF (..),
     AuthTree,
     permission,
+    PermissionList,
     PermissionName,
     role,
     RoleName,
@@ -14,6 +15,8 @@ import Data.Generics.Fixplate.Base (Mu (Fix))
 import Data.Text (Text)
 
 type PermissionName = Text
+
+type PermissionList = [PermissionName]
 
 type RoleName = Text
 

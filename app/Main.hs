@@ -1,23 +1,33 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Main (main) where
 
 import Lib
-  ( allPermissions,
-    anyPermissions,
+  ( accPerms,
+    allAuth,
+    anyAuth,
     calculateProjectReports,
+    demoAuthTree,
+    demoProject,
     drawTreeWith,
-    prettyAny,
+    prettyAuth,
     prettyResult,
-    someAuthTree,
-    someProject,
+    showAuthTree,
   )
 
 main :: IO ()
 main = do
-  pr <- calculateProjectReports someProject
+  pr <- calculateProjectReports demoProject
   drawTreeWith prettyResult pr
-  putStrLn "anyTree"
-  anyTree <- anyPermissions someAuthTree
-  drawTreeWith prettyAny anyTree
-  putStrLn "allTree"
-  allTree <- allPermissions someAuthTree
-  drawTreeWith prettyAny allTree
+
+  putStrLn "Roles and Permissions"
+  drawTreeWith showAuthTree demoAuthTree
+  let accTree = accPerms demoAuthTree
+
+  putStrLn "anyPermissions [\"create-all\", \"create-user\"] demoAuthTree"
+  let anyTree = anyAuth ["create-all", "create-user"] accTree
+  drawTreeWith prettyAuth anyTree
+
+  putStrLn "allPermissions [\"create-company\", \"create-user\"] demoAuthTree"
+  let allTree = allAuth ["create-company", "create-user"] accTree
+  drawTreeWith prettyAuth allTree

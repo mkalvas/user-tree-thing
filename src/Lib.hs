@@ -1,19 +1,21 @@
 module Lib
-  ( calculateProjectReports,
+  ( accPerms,
+    allAuth,
+    anyAuth,
+    calculateProjectReports,
+    demoAuthTree,
+    demoProject,
     drawTreeWith,
-    allPermissions,
-    anyPermissions,
-    prettyAny,
+    prettyAuth,
     prettyResult,
-    someAuthTree,
-    someProject,
+    showAuthTree,
   )
 where
 
-import Auth.Demo (someAuthTree)
-import Auth.PrettyPrint (prettyAny)
-import Auth.Reporting (allPermissions, anyPermissions)
+import Auth.Demo (demoAuthTree)
+import Auth.PrettyPrint (prettyAuth, showAuthTree)
+import Auth.Reporting (accPerms, allAuth, anyAuth)
 import Data.Generics.Fixplate.Draw (drawTreeWith)
-import Projects.Demo (someProject)
+import Projects.Demo (demoProject)
 import Projects.PrettyPrint (prettyResult)
 import Projects.Reporting (calculateProjectReports)
